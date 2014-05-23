@@ -6,7 +6,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <textarea class="in">
+    <div><textarea class="in">
 Etiam eu imperdiet luctus
 Donec mollis suscipit nisl tristique ullamcorper
 Integer viverra convallis (est non dictum)
@@ -37,7 +37,7 @@ Sed vestibulum orci nec condimentum scelerisque
 Curabitur fringilla nulla quis sem consequat</textarea>
     <button id="go">→<br>&#10549</button>
     <textarea class="outJson"></textarea>
-    <br>
+    </div>
     <textarea class="outHtml"></textarea>
 
     <script>
@@ -118,7 +118,7 @@ Curabitur fringilla nulla quis sem consequat</textarea>
 
         button#go {
             vertical-align: top;
-            margin: calc((30px + 400px/2) - 50px) -20px 0 0;
+            margin: calc(400px/2 - 50px) -20px 0 0;
             padding: 50px 10px;
             border-radius: 2px;
         }
