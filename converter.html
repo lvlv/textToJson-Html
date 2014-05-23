@@ -65,11 +65,13 @@ Curabitur fringilla nulla quis sem consequat</textarea>
             $('.outJson').val( JSON.stringify(obj).replace(/\:/g, ': ').split(',').join(',\n') );
 
             for (var i in obj) {
-                classes.push('<span class="str-local-LabelMorbiDUI_' + i + '</span>');
+                classes.push('<li><span class="str-local-LabelMorbiDUI_' + i + '</span></li>');
             }
 
             $('.outHtml').val(
+                '<ul>' +
                 classes.join('\n').toString()
+                + '</ul>'
             );
 
             classes.length = 0;
@@ -90,7 +92,6 @@ Curabitur fringilla nulla quis sem consequat</textarea>
             margin: 30px 10px 0 30px;
             border: 1px solid #c7c7c7;
             height: 365px;
-            width: 600px;
             border-radius: 2px;
             resize: none;
         }
@@ -102,8 +103,16 @@ Curabitur fringilla nulla quis sem consequat</textarea>
             outline: none;
         }
 
+        textarea.in {
+            width: 500px;
+        }
+
+        textarea.outJson {
+            width: 697px;
+        }
+
         textarea.outHtml {
-            width: calc(600px * 2);
+            width: calc(697px + 500px + 80px);
             height: 300px;
         }
 
