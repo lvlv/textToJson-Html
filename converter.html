@@ -49,7 +49,7 @@ Curabitur fringilla nulla quis sem consequat</textarea>
         function toObj(arr) {
             var obj = {};
             for (var i = 0; i < arr.length; ++i){
-                obj[ toCamel(arr[i]).replace(/\s\(([^)]+)\)/g, '') ] = arr[i];
+                obj[ toCamel(arr[i]) ] = arr[i];
             }
             return obj;
         }
@@ -62,16 +62,16 @@ Curabitur fringilla nulla quis sem consequat</textarea>
             var array = text.split(/\r\n|\r|\n/g);
             var obj = toObj(array);
 
-            $('.outJson').val( JSON.stringify(obj).replace(/\:/g, ': ').split(',').join(',\n') );
+            $('.outJson').val(
+                JSON.stringify(obj).replace(/\:/g, ': ').split(',').join(',\n')
+            );
 
             for (var i in obj) {
                 classes.push('<li><span class="str-local-LabelMorbiDUI_' + i + '</span></li>');
             }
 
             $('.outHtml').val(
-                '<ul>' +
-                classes.join('\n').toString()
-                + '</ul>'
+                '<ul>' + classes.join('\n').toString() + '</ul>'
             );
 
             classes.length = 0;
