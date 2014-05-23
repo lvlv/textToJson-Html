@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Converter</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <textarea class="in">
+Etiam eu imperdiet luctus
+Donec mollis suscipit nisl tristique ullamcorper
+Integer viverra convallis (est non dictum)
+Aenean porttitor imperdiet nulla in laoreet
+Praesent sed est interdum consectetur libero nec
+ornare justo. Pellentesque quis
+Nullam odio leo pharetra in nunc eu
+Suscipit blandit quam.
+Donec sed massa ullamcorper volutpat diam sit amet
+Cras in libero non varius tortor
+Curabitur leo metus mollis et blandit eget
+Ut cursus odio eu venenatis dapibus
+Suspendisse potenti. Sus eget sem blandit gravida
+Nam vitae sapien sit amet eros mattis tincidunt
+Curabitur convallis (ligula a bibendum convallis)
+Phasellus luctus ultricies lacus (non blandit tortor)
+Donec consequat fermentum enim
+Ut pharetra quam eget mattis luctus
+Nullam facilisis (ornare bibendum)
+Lacinia facilisis orci dignissim
+Phasellus sit amet sapien eu orci sodales elementum non et diam
+Aenean ac orci eu mauris egestas ullamcorper
+Sed posuere sodales metus id eleifend mi rutrum vel
+Mauris rutrum odio eu lorem dapibus (quis ultricies mi sodales)
+Sed venenatis eros ac turpis mollis porta
+Integer tincidunt odio placerat vestibulum scelerisque
+Sed vestibulum orci nec condimentum scelerisque
+Curabitur fringilla nulla quis sem consequat</textarea>
+    <button id="go">→<br>&#10549</button>
+    <textarea class="outJson"></textarea>
+    <br>
+    <textarea class="outHtml"></textarea>
+
+    <script>
+
+        function toCamel(txt) {
+            return txt.replace(/(\ [a-zA-Z])/g, function($1){return $1.toUpperCase().replace(' ','')})
+        }
+
+        function toObj(arr) {
+            var obj = {};
+            for (var i = 0; i < arr.length; ++i){
+                obj[ toCamel(arr[i]).replace(/\s\(([^)]+)\)/g, '') ] = arr[i];
+            }
+            return obj;
+        }
+
+        var classes = [];
+
+        $('#go').click( function(){
+            var text = $('.in').val();
+
+            var array = text.split(/\r\n|\r|\n/g);
+            var obj = toObj(array);
+
+            $('.outJson').val( JSON.stringify(obj).replace(/\:/g, ': ').split(',').join(',\n') );
+
+            for (var i in obj) {
+                classes.push('<span class="str-local-LabelMorbiDUI_' + i + '</span>');
+            }
+
+            $('.outHtml').val(
+                classes.join('\n').toString()
+            );
+
+            classes.length = 0;
+
+        });
+
+    </script>
+
+    <style>
+        body {
+            text-align: center;
+        }
+        textarea {
+            padding: 7px;
+            margin: 30px 10px 0 30px;
+            border: 1px solid #c7c7c7;
+            resize: none;
+            height: 370px;
+            width: 600px
+        }
+
+        button {
+            background: #fff;
+            border: 1px solid gray;
+            outline: none;
+            border-radius: 50%;
+        }
+
+        textarea.outHtml {
+            width: calc(600px * 2);
+            height: 300px;
+        }
+
+        button#go {
+            vertical-align: top;
+            margin: calc((30px + 400px/2) - 50px) -20px 0 0;
+            padding: 50px 10px;
+            border-radius: 2px;
+        }
+
+        button#go:hover {
+            background: #f4f4f9;
+        }
+    </style>
+</body>
+</html>
