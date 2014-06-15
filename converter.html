@@ -4,6 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Converter</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <textarea class="in">
@@ -38,94 +40,5 @@ Curabitur fringilla nulla quis sem consequat</textarea>
     <button id="go">→<br>&#10549</button>
     <textarea class="outJson"></textarea>
     <textarea class="outHtml"></textarea>
-
-    <script>
-
-        function toCamel(txt) {
-            return txt.replace(/(\ [a-zA-Z])/g, function($1){return $1.toUpperCase().replace(' ','')})
-        }
-
-        function toObj(arr) {
-            var obj = {};
-            for (var i = 0; i < arr.length; ++i){
-                obj[ toCamel(arr[i]).replace(/\s\(([^)]+)\)/g, '') ] = arr[i];
-            }
-            return obj;
-        }
-
-        var classes = [];
-
-        $('#go').click( function(){
-            var text = $('.in').val();
-
-            var array = text.split(/\r\n|\r|\n/g);
-            var obj = toObj(array);
-
-            $('.outJson').val(
-                JSON.stringify(obj).replace(/\:/g, ': ').split(',').join(',\n')
-            );
-
-            for (var i in obj) {
-                classes.push('<li><span class="str-local-LabelMorbiDUI_' + i + '</span></li>');
-            }
-
-            $('.outHtml').val(
-                '<ul>' + classes.join('\n').toString() + '</ul>'
-            );
-
-            classes.length = 0;
-
-        });
-
-    </script>
-
-    <style>
-        body {
-            text-align: center;
-        }
-
-        textarea {
-            font-size: 11px;
-            font-family:  Lucida Grande, Tahoma;
-            line-height: 1.2em;
-            padding: 4px 7px;
-            margin: 30px 10px 0 30px;
-            border: 1px solid #c7c7c7;
-            height: 365px;
-            border-radius: 2px;
-            resize: none;
-        }
-
-        button {
-            background: #fff;
-            border: 1px solid gray;
-            border-radius: 50%;
-            outline: none;
-        }
-
-        textarea.in {
-            width: 350px;
-        }
-
-        textarea.outJson {
-            width: 697px;
-        }
-
-        textarea.outHtml {
-            width: calc(350px + 697px + 80px);
-            height: 300px;
-        }
-
-        button#go {
-            vertical-align: top;
-            margin: calc(400px/2 - 50px) -20px 0 0;
-            padding: 50px 10px;
-            border-radius: 2px;
-        }
-
-        button#go:hover {
-            background: #f4f4f9;
-        }
-    </style>
 </body>
 </html>
